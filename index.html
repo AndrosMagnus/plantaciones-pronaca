@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plantaciones Forestales - Pronaca</title>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        #container {
+            display: flex;
+            height: 100vh;
+        }
+        
+        /* Panel lateral */
+        #sidebar {
+            width: 350px;
+            background: white;
+            border-right: 2px solid #ddd;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+        
+        #sidebar-header {
+            background: linear-gradient(135deg, #2F75B5 0%, #1a4d7a 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        #sidebar-header h1 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        
+        #sidebar-header p {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        
+        /* Búsqueda */
+        #search-container {
+            padding: 15px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        #search-input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        #search-input:focus {
+            outline: none;
+            border-color: #2F75B5;
+            box-shadow: 0 0 0 3px rgba(47, 117, 181, 0.1);
+        }
+        
+        /* Lista de puntos */
+        #points-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        
+        .point-item {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .point-item:hover {
+            background: #f0f7ff;
+            border-color: #2F75B5;
+            transform: translateX(5px);
+            box-shadow: 0 2px 8px rgba(47, 117, 181, 0.2);
+        }
+        
+        .point-item.active {
+            background: #e3f2fd;
+            border-color: #2F75B5;
+            border-width: 2px;
+        }
+        
+        .point-name {
+            font-weight: bold;
+            color: #2F75B5;
+            font-size: 15px;
+            margin-bottom: 5px;
+        }
+        
+        .point-species {
+            color: #28a745;
+            font-size: 12px;
+            margin-bottom: 3px;
+        }
+        
+        .point-coords {
+            color: #666;
+            font-size: 11px;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 30px;
+            color: #999;
+        }
+        
+        /* Estadísticas */
+        #stats {
+            background: #f8f9fa;
+            padding: 10px 15px;
+            border-top: 1px solid #ddd;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        /* Mapa */
+        #map {
+            flex: 1;
+            height: 100vh;
+        }
+        
+        /* Popup personalizado */
+        .leaflet-popup-content {
+            margin: 15px;
+            font-size: 13px;
+        }
+        
+        .popup-title {
+            font-weight: bold;
+            color: #2F75B5;
+            font-size: 16px;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #2F75B5;
+            padding-bottom: 5px;
+        }
+        
+        .popup-row {
+            margin: 5px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .popup-label {
+            font-weight: bold;
+            color: #555;
+        }
+        
+        .popup-value {
+            color: #333;
+        }
+        
+        /* Control de capas personalizado */
+        .layer-control {
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        /* Tooltip */
+        .leaflet-tooltip {
+            background: rgba(47, 117, 181, 0.95);
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+            padding: 5px 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            #sidebar {
+                width: 100%;
+                max-width: 300px;
+                position: absolute;
+                z-index: 1000;
+                height: 100vh;
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+            }
+            
+            #sidebar.open {
+                transform: translateX(0);
+            }
+            
+            #toggle-sidebar {
+                display: block;
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                z-index: 1001;
+                background: white;
+                border: none;
+                padding: 10px;
+                border-radius: 5px;
+                cursor: pointer;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            }
+        }
+        
+        #toggle-sidebar {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <!-- Panel lateral -->
+        <div id="sidebar">
+            <div id="sidebar-header">
+                <h1>🌳 Plantaciones Forestales</h1>
+                <p>Control Forestal Pronaca - 2025</p>
+            </div>
+            
+            <div id="search-container">
+                <input 
+                    type="text" 
+                    id="search-input" 
+                    placeholder="🔍 Buscar plantación..."
+                    autocomplete="off"
+                >
+            </div>
+            
+            <div id="points-list"></div>
+            
+            <div id="stats">
+                <strong>Total ubicaciones:</strong> <span id="total-count">0</span> |
+                <strong>Mostrando:</strong> <span id="visible-count">0</span>
+            </div>
+        </div>
+        
+        <!-- Mapa -->
+        <div id="map"></div>
+    </div>
+    
+    <button id="toggle-sidebar">☰</button>
+    
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <script>
+        // Inicializar mapa
+        const map = L.map('map').setView([-1.5, -79.4], 9);
+        
+        // Capas base
+        const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 19
+        });
+        
+        const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles © Esri',
+            maxZoom: 19
+        });
+        
+        const hybrid = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles © Esri',
+            maxZoom: 19
+        });
+        
+        const labels = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png', {
+            attribution: '© CartoDB',
+            maxZoom: 19
+        });
+        
+        // Agregar capa base por defecto
+        hybrid.addTo(map);
+        labels.addTo(map);
+        
+        // Control de capas
+        const baseMaps = {
+            "🛰️ Satélite": hybrid,
+            "🗺️ Mapa": osm
+        };
+        
+        // Grupo para las plantaciones (preparado para polígonos futuros)
+        const plantacionesLayer = L.layerGroup().addTo(map);
+        const poligonosLayer = L.layerGroup(); // Preparado para futuros polígonos
+        
+        const overlayMaps = {
+            "📍 Plantaciones": plantacionesLayer,
+            "🟢 Polígonos": poligonosLayer  // Estará vacío hasta que agreguen los polígonos
+        };
+        
+        L.control.layers(baseMaps, overlayMaps, {
+            position: 'topright',
+            collapsed: false
+        }).addTo(map);
+        
+        // Datos de plantaciones (se cargarán desde plantaciones.js)
+        let plantaciones = [];
+        let markers = [];
+        
+        // Función para crear popup
+        function createPopup(feature) {
+            const props = feature.properties;
+            return `
+                <div class="popup-title">${props.plantacion}</div>
+                <div class="popup-row">
+                    <span class="popup-label">Especie:</span>
+                    <span class="popup-value">${props.especie}</span>
+                </div>
+                <div class="popup-row">
+                    <span class="popup-label">Año:</span>
+                    <span class="popup-value">${props.año}</span>
+                </div>
+                <div class="popup-row">
+                    <span class="popup-label">Hectáreas:</span>
+                    <span class="popup-value">${props.hectareas} ha</span>
+                </div>
+                <div class="popup-row">
+                    <span class="popup-label">Árboles:</span>
+                    <span class="popup-value">${Number(props.arboles_sembrados).toLocaleString()}</span>
+                </div>
+                <div class="popup-row" style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #ddd;">
+                    <span class="popup-label">Coords UTM:</span>
+                    <span class="popup-value" style="font-size: 10px;">${feature.geometry.coordinates[0].toFixed(0)}, ${feature.geometry.coordinates[1].toFixed(0)}</span>
+                </div>
+            `;
+        }
+        
+        // Función para cargar plantaciones
+        function loadPlantaciones(geojsonData) {
+            // Agrupar por ubicación
+            const ubicaciones = new Map();
+            
+            geojsonData.features.forEach(feature => {
+                const coords = feature.geometry.coordinates.join(',');
+                if (!ubicaciones.has(coords)) {
+                    ubicaciones.set(coords, {
+                        plantacion: feature.properties.plantacion,
+                        especies: new Set([feature.properties.especie]),
+                        coords: feature.geometry.coordinates,
+                        features: [feature]
+                    });
+                } else {
+                    ubicaciones.get(coords).especies.add(feature.properties.especie);
+                    ubicaciones.get(coords).features.push(feature);
+                }
+            });
+            
+            plantaciones = Array.from(ubicaciones.values());
+            
+            // Crear marcadores
+            plantaciones.forEach((ubicacion, index) => {
+                const coords = ubicacion.coords;
+                const latlng = [coords[1], coords[0]]; // Leaflet usa [lat, lng]
+                
+                // Convertir a lat/lon para mostrar
+                const marker = L.circleMarker(latlng, {
+                    radius: 8,
+                    fillColor: '#dc3545',
+                    color: '#fff',
+                    weight: 2,
+                    opacity: 1,
+                    fillOpacity: 0.8
+                });
+                
+                // Popup al hacer click
+                const popupContent = ubicacion.features.map(f => createPopup(f)).join('<hr style="margin: 10px 0;">');
+                marker.bindPopup(popupContent, { maxWidth: 300 });
+                
+                // Tooltip al pasar el mouse
+                marker.bindTooltip(ubicacion.plantacion, {
+                    permanent: false,
+                    direction: 'top',
+                    offset: [0, -10]
+                });
+                
+                marker.addTo(plantacionesLayer);
+                
+                // Guardar referencia
+                markers.push({
+                    marker: marker,
+                    data: ubicacion,
+                    index: index
+                });
+            });
+            
+            // Ajustar vista a todos los marcadores
+            const group = L.featureGroup(markers.map(m => m.marker));
+            map.fitBounds(group.getBounds().pad(0.1));
+            
+            // Renderizar lista
+            renderList();
+        }
+        
+        // Función para renderizar lista
+        function renderList(filter = '') {
+            const listContainer = document.getElementById('points-list');
+            const filtered = plantaciones.filter(p => 
+                p.plantacion.toLowerCase().includes(filter.toLowerCase()) ||
+                Array.from(p.especies).some(e => e.toLowerCase().includes(filter.toLowerCase()))
+            );
+            
+            if (filtered.length === 0) {
+                listContainer.innerHTML = '<div class="no-results">No se encontraron resultados</div>';
+            } else {
+                listContainer.innerHTML = filtered.map((ubicacion, idx) => {
+                    const especies = Array.from(ubicacion.especies).join('; ');
+                    const totalRegistros = ubicacion.features.length;
+                    
+                    return `
+                        <div class="point-item" data-index="${plantaciones.indexOf(ubicacion)}">
+                            <div class="point-name">${ubicacion.plantacion}</div>
+                            <div class="point-species">🌱 ${especies}</div>
+                            <div class="point-coords">📍 ${totalRegistros} registro${totalRegistros > 1 ? 's' : ''}</div>
+                        </div>
+                    `;
+                }).join('');
+                
+                // Event listeners para items
+                document.querySelectorAll('.point-item').forEach(item => {
+                    item.addEventListener('click', function() {
+                        const index = parseInt(this.dataset.index);
+                        const markerData = markers.find(m => m.index === index);
+                        
+                        if (markerData) {
+                            // Centrar mapa
+                            map.setView(markerData.marker.getLatLng(), 15);
+                            
+                            // Abrir popup
+                            markerData.marker.openPopup();
+                            
+                            // Highlight en lista
+                            document.querySelectorAll('.point-item').forEach(i => i.classList.remove('active'));
+                            this.classList.add('active');
+                        }
+                    });
+                });
+            }
+            
+            // Actualizar estadísticas
+            document.getElementById('total-count').textContent = plantaciones.length;
+            document.getElementById('visible-count').textContent = filtered.length;
+        }
+        
+        // Búsqueda
+        document.getElementById('search-input').addEventListener('input', function(e) {
+            renderList(e.target.value);
+        });
+        
+        // Toggle sidebar en móvil
+        document.getElementById('toggle-sidebar').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('open');
+        });
+        
+        // Cargar datos desde archivo externo
+        fetch('plantaciones.geojson')
+            .then(response => response.json())
+            .then(data => loadPlantaciones(data))
+            .catch(error => {
+                console.error('Error cargando datos:', error);
+                alert('Error al cargar los datos de las plantaciones');
+            });
+    </script>
+</body>
+</html>
+
+    <!-- Script adicional para cargar polígonos cuando estén disponibles -->
+    <script>
+        // Función para cargar polígonos (se ejecuta automáticamente)
+        function loadPoligonos() {
+            fetch('poligonos.geojson')
+                .then(response => {
+                    if (!response.ok) {
+                        console.log('Archivo de polígonos no encontrado aún. Esto es normal si aún no los han agregado.');
+                        return null;
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data && data.features && data.features.length > 0) {
+                        // Agregar polígonos al mapa
+                        L.geoJSON(data, {
+                            style: function(feature) {
+                                return {
+                                    color: '#28a745',
+                                    weight: 2,
+                                    fillOpacity: 0.3
+                                };
+                            },
+                            onEachFeature: function(feature, layer) {
+                                if (feature.properties) {
+                                    const props = feature.properties;
+                                    let popupContent = '<div class="popup-title">' + (props.nombre || props.plantacion || 'Plantación') + '</div>';
+                                    
+                                    if (props.especie) popupContent += '<div class="popup-row"><span class="popup-label">Especie:</span><span class="popup-value">' + props.especie + '</span></div>';
+                                    if (props.hectareas) popupContent += '<div class="popup-row"><span class="popup-label">Hectáreas:</span><span class="popup-value">' + props.hectareas + ' ha</span></div>';
+                                    if (props.año) popupContent += '<div class="popup-row"><span class="popup-label">Año:</span><span class="popup-value">' + props.año + '</span></div>';
+                                    
+                                    layer.bindPopup(popupContent);
+                                    layer.bindTooltip(props.nombre || props.plantacion || 'Plantación', {
+                                        permanent: false,
+                                        direction: 'center'
+                                    });
+                                }
+                            }
+                        }).addTo(poligonosLayer);
+                        
+                        // Agregar la capa de polígonos al mapa automáticamente
+                        poligonosLayer.addTo(map);
+                        
+                        console.log('✅ Polígonos cargados exitosamente:', data.features.length, 'polígonos');
+                    }
+                })
+                .catch(error => {
+                    console.log('Los polígonos aún no están disponibles. Se cargarán automáticamente cuando se agregue el archivo poligonos.geojson');
+                });
+        }
+        
+        // Intentar cargar polígonos después de cargar las plantaciones
+        setTimeout(loadPoligonos, 1000);
+    </script>
+</body>
+</html>

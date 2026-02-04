@@ -1,0 +1,515 @@
+{
+  "type": "FeatureCollection",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "EPSG:32717"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          692162.0,
+          9916845.0
+        ]
+      },
+      "properties": {
+        "id": "1",
+        "especie": "Melina",
+        "plantacion": "Loma Linda",
+        "año": "2023",
+        "hectareas": "331.5",
+        "arboles_sembrados": "104295"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          692162.0,
+          9916845.0
+        ]
+      },
+      "properties": {
+        "id": "2",
+        "especie": "Melina",
+        "plantacion": "Loma Linda",
+        "año": "2018",
+        "hectareas": "12",
+        "arboles_sembrados": "2420"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          697470.0,
+          9903904.0
+        ]
+      },
+      "properties": {
+        "id": "4",
+        "especie": "Melina",
+        "plantacion": "Bella Jungla",
+        "año": "2023",
+        "hectareas": "33.9",
+        "arboles_sembrados": "10334"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          697470.0,
+          9903904.0
+        ]
+      },
+      "properties": {
+        "id": "5",
+        "especie": "Melina",
+        "plantacion": "Bella Jungla II",
+        "año": "2020",
+        "hectareas": "63",
+        "arboles_sembrados": "15012"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          690598.0,
+          9744955.0
+        ]
+      },
+      "properties": {
+        "id": "6",
+        "especie": "Teca",
+        "plantacion": "Costa 3",
+        "año": "2011",
+        "hectareas": "14.14",
+        "arboles_sembrados": "4077"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          690598.0,
+          9744955.0
+        ]
+      },
+      "properties": {
+        "id": "7",
+        "especie": "Teca",
+        "plantacion": "Costa 3",
+        "año": "2023",
+        "hectareas": "17",
+        "arboles_sembrados": "8131"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          692714.0,
+          9740288.0
+        ]
+      },
+      "properties": {
+        "id": "8",
+        "especie": "Teca",
+        "plantacion": "Costa 5",
+        "año": "2016",
+        "hectareas": "40",
+        "arboles_sembrados": "13421"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          683018.0,
+          9744128.0
+        ]
+      },
+      "properties": {
+        "id": "9",
+        "especie": "Teca",
+        "plantacion": "Laboratorio ET",
+        "año": "2020",
+        "hectareas": "1",
+        "arboles_sembrados": "520"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          683018.0,
+          9744128.0
+        ]
+      },
+      "properties": {
+        "id": "10",
+        "especie": "Teca",
+        "plantacion": "Laboratorio ET",
+        "año": "2011",
+        "hectareas": "1.6",
+        "arboles_sembrados": "374"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          629770.0,
+          9859521.0
+        ]
+      },
+      "properties": {
+        "id": "11",
+        "especie": "Teca",
+        "plantacion": "La Josefina",
+        "año": "2020",
+        "hectareas": "51",
+        "arboles_sembrados": "20612"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          629770.0,
+          9859521.0
+        ]
+      },
+      "properties": {
+        "id": "12",
+        "especie": "Teca",
+        "plantacion": "La Josefina",
+        "año": "2021",
+        "hectareas": "3",
+        "arboles_sembrados": "1511"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          682962.0,
+          9753946.0
+        ]
+      },
+      "properties": {
+        "id": "13",
+        "especie": "Teca",
+        "plantacion": "San Carlos 1",
+        "año": "2016",
+        "hectareas": "40",
+        "arboles_sembrados": "12850"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          682962.0,
+          9753946.0
+        ]
+      },
+      "properties": {
+        "id": "14",
+        "especie": "Teca",
+        "plantacion": "San Carlos 1",
+        "año": "2023",
+        "hectareas": "3",
+        "arboles_sembrados": "866"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          673226.0,
+          9746554.0
+        ]
+      },
+      "properties": {
+        "id": "15",
+        "especie": "Teca",
+        "plantacion": "San Carlos 3",
+        "año": "2012",
+        "hectareas": "92",
+        "arboles_sembrados": "21073"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          706862.0,
+          9755086.0
+        ]
+      },
+      "properties": {
+        "id": "17",
+        "especie": "Pachaco",
+        "plantacion": "Planta Aves Bucay",
+        "año": "2024",
+        "hectareas": "17.5",
+        "arboles_sembrados": "6659"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          705800.0,
+          9754600.0
+        ]
+      },
+      "properties": {
+        "id": "18",
+        "especie": "Pachaco",
+        "plantacion": "Costa 1",
+        "año": "2025",
+        "hectareas": "7.5",
+        "arboles_sembrados": "2965"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          695200.0,
+          9755400.0
+        ]
+      },
+      "properties": {
+        "id": "20",
+        "especie": "Sistema silvopastoril (SSP)",
+        "plantacion": "Aves Plata",
+        "año": "2018",
+        "hectareas": "1",
+        "arboles_sembrados": "96"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          695200.0,
+          9755400.0
+        ]
+      },
+      "properties": {
+        "id": "21",
+        "especie": "Sistema silvopastoril (SSP)",
+        "plantacion": "Aves Plata",
+        "año": "2019",
+        "hectareas": "9",
+        "arboles_sembrados": "210"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          692162.0,
+          9916845.0
+        ]
+      },
+      "properties": {
+        "id": "22",
+        "especie": "Caña guadúa",
+        "plantacion": "Loma Linda",
+        "año": "2000",
+        "hectareas": "38",
+        "arboles_sembrados": "6230"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          692162.0,
+          9916845.0
+        ]
+      },
+      "properties": {
+        "id": "23",
+        "especie": "Caña guadúa",
+        "plantacion": "Loma Linda",
+        "año": "2015",
+        "hectareas": "93",
+        "arboles_sembrados": "8140"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          692162.0,
+          9916845.0
+        ]
+      },
+      "properties": {
+        "id": "24",
+        "especie": "Caña guadúa",
+        "plantacion": "Loma Linda",
+        "año": "2015",
+        "hectareas": "10",
+        "arboles_sembrados": "1840"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          706000.0,
+          9755200.0
+        ]
+      },
+      "properties": {
+        "id": "25",
+        "especie": "Caña guadúa",
+        "plantacion": "Planta Aves Bucay",
+        "año": "2015",
+        "hectareas": "8",
+        "arboles_sembrados": "1132"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          697300.0,
+          9903600.0
+        ]
+      },
+      "properties": {
+        "id": "26",
+        "especie": "Caña guadúa",
+        "plantacion": "Bella Jungla",
+        "año": "2015",
+        "hectareas": "28",
+        "arboles_sembrados": "5714"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          697900.0,
+          9903600.0
+        ]
+      },
+      "properties": {
+        "id": "27",
+        "especie": "Caña guadúa",
+        "plantacion": "Bella Jungla II",
+        "año": "2020",
+        "hectareas": "11",
+        "arboles_sembrados": "2230"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          697470.0,
+          9903904.0
+        ]
+      },
+      "properties": {
+        "id": "28",
+        "especie": "Bosques de amortiguamiento y conservación",
+        "plantacion": "Bella Jungla",
+        "año": "2015",
+        "hectareas": "160",
+        "arboles_sembrados": "192000"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          692714.0,
+          9740288.0
+        ]
+      },
+      "properties": {
+        "id": "29",
+        "especie": "Bosques de amortiguamiento y conservación",
+        "plantacion": "Costa 5",
+        "año": "2015",
+        "hectareas": "53",
+        "arboles_sembrados": "63600"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          692162.0,
+          9916845.0
+        ]
+      },
+      "properties": {
+        "id": "30",
+        "especie": "Bosques de amortiguamiento y conservación",
+        "plantacion": "Loma Linda",
+        "año": "2015",
+        "hectareas": "32",
+        "arboles_sembrados": "38400"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          706862.0,
+          9755086.0
+        ]
+      },
+      "properties": {
+        "id": "31",
+        "especie": "Bosques de amortiguamiento y conservación",
+        "plantacion": "Planta Aves Bucay",
+        "año": "2015",
+        "hectareas": "2",
+        "arboles_sembrados": "2400"
+      }
+    }
+  ]
+}
