@@ -2625,14 +2625,11 @@
         ]
       },
       "properties": {
-        "capa": "Polígonos Forestales - Pronaca",
-        "id": 1,
+        "nombre": "Costa 5",
         "plantacion": "Costa 5",
         "especie": "Bosques de amortiguamiento y conservación",
-        "ano": 2015,
-        "hectareas": 51.36,
-        "perimetro": 4267.0,
-        "fuente": "GPS campo - Bosque_Costa_5.xls"
+        "año": "2015",
+        "hectareas": 51.36
       }
     },
     {
@@ -3301,12 +3298,11 @@
         ]
       },
       "properties": {
-        "capa": "Predio_Bella_Jungla_Melina.shp",
-        "PROPIETARI": "NULL",
-        "PREDIO": "NULL",
-        "ANO": "NULL",
-        "Uso_suelo": "NULL",
-        "Ha": 29.0585094662
+        "nombre": "Bella Jungla - Melina",
+        "plantacion": "Bella Jungla",
+        "especie": "Melina",
+        "año": "2018",
+        "hectareas": 29.06
       }
     }
   ]
