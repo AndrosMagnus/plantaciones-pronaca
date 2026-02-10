@@ -485,7 +485,7 @@
 <script>
     // Función para cargar polígonos (se ejecuta automáticamente)
     function loadPoligonos() {
-        fetch('poligonos.geojson')
+        fetch('poligonos.geojson?v=' + Date.now())
             .then(response => {
                 if (!response.ok) {
                     console.log('Archivo de polígonos no encontrado aún. Esto es normal si aún no los han agregado.');
@@ -499,20 +499,20 @@
                     L.geoJSON(data, {
                         style: function (feature) {
                             return {
-                                color: '#28a745',
-                                weight: 2,
-                                fillOpacity: 0.3
+                                color: '#1a7a2e',
+                                weight: 3,
+                                fillColor: '#28a745',
+                                fillOpacity: 0.35,
+                                opacity: 1.0
                             };
                         },
                         onEachFeature: function (feature, layer) {
                             if (feature.properties) {
                                 const props = feature.properties;
                                 let popupContent = '<div class="popup-title">' + (props.nombre || props.plantacion || 'Plantación') + '</div>';
-
                                 if (props.especie) popupContent += '<div class="popup-row"><span class="popup-label">Especie:</span><span class="popup-value">' + props.especie + '</span></div>';
                                 if (props.hectareas) popupContent += '<div class="popup-row"><span class="popup-label">Hectáreas:</span><span class="popup-value">' + props.hectareas + ' ha</span></div>';
                                 if (props.año) popupContent += '<div class="popup-row"><span class="popup-label">Año:</span><span class="popup-value">' + props.año + '</span></div>';
-
                                 layer.bindPopup(popupContent);
                                 layer.bindTooltip(props.nombre || props.plantacion || 'Plantación', {
                                     permanent: false,
